@@ -23,6 +23,8 @@ import DeleteRow from "./icon/delete_row.svg";
 import ChangeThRow from "./icon/change_th_row.svg";
 import CombineCells from "./icon/combine_cells.svg";
 import BoldIcon from "./icon/bold.svg";
+import LinkIcon from "./icon/link.svg";
+import UnLinkIcon from "./icon/link-unlink.svg";
 
 // CSS
 import "./css/Editor.scss";
@@ -156,52 +158,83 @@ export const Editor = () => {
     <div className="editor">
       <div className="toolbar">
         <button
+          onClick={() => editor.chain().focus().toggleBold().run()}
+          className={editor.isActive("bold") ? "is-active" : ""}
+          title="太字"
+        >
+          <img src={BoldIcon} />
+        </button>
+        <button
           onClick={setLink}
           className={editor.isActive("link") ? "is-active" : ""}
+          title="リンク"
         >
-          setLink
+          <img src={LinkIcon} />
         </button>
         <button
           onClick={() => editor.chain().focus().unsetLink().run()}
           disabled={!editor.isActive("link")}
+          title="リンクを消す"
+          style={{ marginRight: "20px" }}
         >
-          unsetLink
+          <img src={UnLinkIcon} />
         </button>
         <button
-          onClick={() => editor.chain().focus().toggleBold().run()}
-          className={editor.isActive("bold") ? "is-active" : ""}
+          onClick={() => editor.chain().focus().addColumnBefore().run()}
+          title="右に列を追加"
         >
-          <img src={BoldIcon} />
-        </button>
-        <button onClick={() => editor.chain().focus().mergeOrSplit().run()}>
-          <img src={CombineCells} />
-        </button>
-        <button onClick={() => editor.chain().focus().addColumnBefore().run()}>
           <img src={AddColBefore} />
         </button>
-        <button onClick={() => editor.chain().focus().addColumnAfter().run()}>
+        <button
+          onClick={() => editor.chain().focus().addColumnAfter().run()}
+          title="左に列を追加"
+        >
           <img src={AddColAfter} />
         </button>
-        <button onClick={() => editor.chain().focus().deleteColumn().run()}>
+        <button
+          onClick={() => editor.chain().focus().deleteColumn().run()}
+          title="列を削除"
+        >
           <img src={DeleteCol} />
         </button>
         <button
           onClick={() => editor.chain().focus().toggleHeaderColumn().run()}
+          title="列を見出しにする"
+          style={{ marginRight: "20px" }}
         >
           <img src={ChangeThCol} />
         </button>
-        <button onClick={() => editor.chain().focus().addRowBefore().run()}>
+        <button
+          onClick={() => editor.chain().focus().addRowBefore().run()}
+          title="上に行を追加"
+        >
           <img src={AddRowBefore} />
         </button>
-        <button onClick={() => editor.chain().focus().addRowAfter().run()}>
+        <button
+          onClick={() => editor.chain().focus().addRowAfter().run()}
+          title="下に行を追加"
+        >
           <img src={AddRowAfter} />
         </button>
-        <button onClick={() => editor.chain().focus().deleteRow().run()}>
+        <button
+          onClick={() => editor.chain().focus().deleteRow().run()}
+          title="行を削除"
+        >
           <img src={DeleteRow} />
         </button>
-        <button onClick={() => editor.chain().focus().toggleHeaderRow().run()}>
+        <button
+          onClick={() => editor.chain().focus().toggleHeaderRow().run()}
+          title="行を見出しにする"
+          style={{ marginRight: "20px" }}
+        >
           <img src={ChangeThRow} />
         </button>
+        {/* <button
+          onClick={() => editor.chain().focus().mergeOrSplit().run()}
+          title="セルを結合"
+        >
+          <img src={CombineCells} />
+        </button> */}
       </div>
       <div className="editor-content">
         <EditorContent editor={editor} />
